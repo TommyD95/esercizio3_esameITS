@@ -1,0 +1,35 @@
+Entità:
+
+Giocatore: ID_giocatore (PK), Nome, Cognome, Data_di_nascita, Nazionalità, Numero_maglia, Ruolo_ID (FK)
+Squadra: ID_squadra (PK), Nome, Città, Anno_di_fondazione
+Ruolo: ID_ruolo (PK), Nome
+Partita: ID_partita (PK), Data, Ora, Squadra_casa_ID (FK), Squadra_ospite_ID (FK), Principale_ID (FK), Riserva_ID (FK)
+Allenatore: ID_allenatore (PK), Nome, Cognome, Data_di_nascita, Nazionalità
+Staff: ID_staff (PK), Nome, Cognome, Mansione, Data_di_nascita, Nazionalità
+Relazioni:
+
+Giocatore-Ruolo: molti-a-uno
+Giocatore-Partita: molti-a-molti
+Squadra-Giocatore: uno-a-molti
+Squadra-Partita: molti-a-molti
+Squadra-Allenatore: uno-a-molti
+Squadra-Staff: uno-a-molti
+Modello ER:
+
+Query di creazione per tabelle "giocatore" e "ruolo" nel database "calcio" con chiavi primarie:
+
+CREATE TABLE ruolo (
+  ID_ruolo INT NOT NULL PRIMARY KEY,
+  Nome VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE giocatore (
+  ID_giocatore INT NOT NULL PRIMARY KEY,
+  Nome VARCHAR(50) NOT NULL,
+  Cognome VARCHAR(50) NOT NULL,
+  Data_di_nascita DATE NOT NULL,
+  Nazionalità VARCHAR(50) NOT NULL,
+  Numero_maglia INT NOT NULL,
+  Ruolo_ID INT NOT NULL,
+  FOREIGN KEY (Ruolo_ID) REFERENCES ruolo(ID_ruolo)
+);
